@@ -22,6 +22,7 @@ export const Task = () => {
     }
 
     addTask(data)
+    setNewTasks('')
   }
 
   return (
@@ -32,6 +33,7 @@ export const Task = () => {
           placeholder='Nova Tarefa'
           placeholderTextColor={'#555'}
           onChangeText={setNewTasks}
+          value={newTask}
         />
         <AddButton
           onPress={handleAddNewTask}
