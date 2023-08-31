@@ -1,11 +1,14 @@
 import React from 'react';
 import { Task } from './src/views/Task';
+import { TasksProvider } from './src/context/TaskContext';
 
 
 const App = () => {
 
   return (
-    <Task />
+    <TasksProvider>
+      <Task />
+    </TasksProvider>
   );
 }
 
