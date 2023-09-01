@@ -8,7 +8,7 @@ export const TaskList = () => {
 
   const [tasks, setTasks] = useState([
     { id: "1", title: 'Tarefa 1', completed: false },
-    { id: "2", title: 'Tarefa 2', completed: false },
+    // { id: "2", title: 'Tarefa 2', completed: false },
 
   ]);
 
@@ -30,14 +30,11 @@ export const TaskList = () => {
   }
 
   const completeTask = (taskId: string) => {
-    const updatedTaskList: any = tasks.map((task) => {
-      if (task.id !== taskId) {
-        return { ...task, completed: !task.completed };
-      }
-      return task;
-    });
-    console.log("upda", updatedTaskList)
-    setTasks(updatedTaskList);
+    const updatedTasks = tasks.map((task) =>
+      task.id === taskId ? { ...task, completed: !task.completed } : task
+    );
+    console.log("task", updatedTasks)
+    setTasks(updatedTasks);
   };
 
   return (
