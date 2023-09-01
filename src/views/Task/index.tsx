@@ -9,8 +9,7 @@ import { Alert } from 'react-native';
 
 export const Task = () => {
   const [newTask, setNewTasks] = useState('')
-  const { tasks, addTask } = useTaskList()
-  const [task, setTask] = useState(tasks)
+  const { addTask } = useTaskList()
 
 
   const handleAddNewTask = () => {

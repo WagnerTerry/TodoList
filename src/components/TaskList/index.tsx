@@ -1,45 +1,43 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FlatList, Alert } from 'react-native';
 import { ITask, useTaskList } from '../../context/TaskContext';
 import { TaskButton, TaskComplete, TaskTitle } from '../../views/Task/styles';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const TaskList = () => {
-  //const { tasks, removeTask } = useTaskList()
+  const { tasks, removeTask, completeTask } = useTaskList()
 
-  const [tasks, setTasks] = useState([
-    { id: "1", title: 'Tarefa 1', completed: false },
-    // { id: "2", title: 'Tarefa 2', completed: false },
+  const [data, setData] = useState<ITask[]>([])
 
-  ]);
+  const tasksData = '@MyTasks'
+
+  useEffect(() => {
+    async function loadTasks() {
+      const taskList = await AsyncStorage.getItem(tasksData)
+
+      if (taskList) {
+        setData(JSON.parse(taskList))
+      }
+    }
+    loadTasks()
+  }, [tasks])
 
   const handleRemoveTask = (id: string) => {
     Alert.alert('Tem certeza?', 'Deseja realmente excluir a tarefa', [
       {
         text: "Cancelar",
         onPress: () => { }
+      },
+      {
+        text: "Excluir",
+        onPress: () => removeTask(id)
       }
-      // {
-      //   text: "Excluir",
-      //   onPress: () => removeTask(id)
-      // }
     ])
   }
 
-  const handleLongPress = () => {
-    console.log("yes")
-  }
-
-  const completeTask = (taskId: string) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, completed: !task.completed } : task
-    );
-    console.log("task", updatedTasks)
-    setTasks(updatedTasks);
-  };
-
   return (
     <FlatList
-      data={tasks as unknown as ITask[]}
+      data={data as unknown as ITask[]}
       keyExtractor={item => item.id}
       renderItem={({ item }) => (
         <TaskButton
