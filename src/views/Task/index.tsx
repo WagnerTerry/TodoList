@@ -15,6 +15,8 @@ import { TaskList } from '../../components/TaskList';
 import { useTaskList } from '../../context/TaskContext';
 import { Alert } from 'react-native';
 import { fetchTask } from '../../services/TaskService';
+import { ToastAndroid } from 'react-native';
+
 
 export const Task = () => {
   const [newTask, setNewTasks] = useState('')
@@ -36,6 +38,7 @@ export const Task = () => {
 
     addTask(data)
     setNewTasks('')
+    handleShowToast("Tarefa adicionada")
   }
 
   const handleAddServerTask = async () => {
@@ -49,12 +52,24 @@ export const Task = () => {
       }
       addTask(data)
       setLoading(false);
+      handleShowToast("Tarefa do servidor adicionada")
+
 
     } catch (error) {
       console.log("error fetching task data", error)
       setLoading(false);
-
     }
+  }
+
+  const handleShowToast = (message: string) => {
+    // Exibe uma mensagem de sucesso temporária
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG, // Duração da mensagem (LONG ou SHORT)
+      ToastAndroid.BOTTOM, // Posição (TOP, BOTTOM, CENTER)
+      25, // Deslocamento vertical em pixels
+      50 // Deslocamento horizontal em pixels
+    );
   }
 
   return (
@@ -71,12 +86,15 @@ export const Task = () => {
           <AddButton
             onPress={handleAddNewTask}
             activeOpacity={0.7}
+            disabled={loading}
           >
             <Span>Adicionar</Span>
           </AddButton>
           <AddServerTask
             onPress={handleAddServerTask}
             activeOpacity={0.7}
+            disabled={loading}
+
           >
             <Span>Tarefa server</Span>
           </AddServerTask>
@@ -95,5 +113,4 @@ export const Task = () => {
       </Container>
     </SafeArea>
   )
-
 }

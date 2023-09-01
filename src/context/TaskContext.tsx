@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { ToastAndroid } from 'react-native';
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface IProps {
@@ -52,6 +54,7 @@ export const TasksProvider: React.FunctionComponent<IProps> = ({ children }) => 
     const newTaskList = data.filter((task) => task.id !== id)
     setData(newTaskList)
     await AsyncStorage.setItem(tasksData, JSON.stringify(newTaskList))
+    handleShowToast("Tarefa removida")
   }
 
   const completeTask = async (taskId: string) => {
@@ -62,6 +65,17 @@ export const TasksProvider: React.FunctionComponent<IProps> = ({ children }) => 
 
     await AsyncStorage.setItem(tasksData, JSON.stringify(updatedTasks))
   };
+
+  const handleShowToast = (message: string) => {
+    ToastAndroid.showWithGravityAndOffset(
+      message,
+      ToastAndroid.LONG,
+      ToastAndroid.BOTTOM,
+      25,
+      50
+    );
+  }
+
 
   return (
     <TasksContext.Provider value={{

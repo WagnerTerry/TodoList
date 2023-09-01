@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FlatList, Alert } from 'react-native';
 import { ITask, useTaskList } from '../../context/TaskContext';
 import { TaskButton, TaskComplete, TaskTitle } from '../../views/Task/styles';
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const TaskList = () => {
