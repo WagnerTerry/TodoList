@@ -9,7 +9,9 @@ import { Alert } from 'react-native';
 
 export const Task = () => {
   const [newTask, setNewTasks] = useState('')
-  const { addTask } = useTaskList()
+  const { tasks, addTask } = useTaskList()
+  const [task, setTask] = useState(tasks)
+
 
   const handleAddNewTask = () => {
     if (newTask.trim() === '') {
@@ -18,7 +20,8 @@ export const Task = () => {
     }
     const data = {
       id: String(new Date().getTime()),
-      title: newTask
+      title: newTask,
+      completed: false
     }
 
     addTask(data)

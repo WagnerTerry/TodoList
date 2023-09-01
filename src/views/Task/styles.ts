@@ -41,6 +41,7 @@ export const AddButton = styled.TouchableOpacity`
   border-radius: 8px;
   align-items: center;
   margin-top: 24px;
+  margin-bottom: 40px;
   color: #f1f1f1;
   font-weight: bold;
   width: 100%;
@@ -48,15 +49,24 @@ export const AddButton = styled.TouchableOpacity`
 
 export const TaskButton = styled.TouchableOpacity`
   background-color: #29292e;
-  padding: 10px;
-  margin-top: 24px;
-  border-radius: 16px;
+  padding: 16px;
+  border-radius: 50px;
   align-items: center;
-  width: 100vw;
+  width: 200px;
+  margin-bottom: 24px;
+
 `
 export const TaskTitle = styled.Text`
   color: #f1f1f1;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: line-through;
+
+`
+
+export const TaskComplete = styled.Text`
+  color: #f1f1f1;
+  font-size: 18px;
   font-weight: bold;
 `
 
