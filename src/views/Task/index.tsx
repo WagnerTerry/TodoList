@@ -13,14 +13,13 @@ import {
   from './styles'
 import { TaskList } from '../../components/TaskList';
 import { useTaskList } from '../../context/TaskContext';
-
-import './styles'
 import { Alert } from 'react-native';
 import { fetchTask } from '../../services/TaskService';
 
 export const Task = () => {
   const [newTask, setNewTasks] = useState('')
-  const [serverTask, setServerTask] = useState('')
+  const [loading, setLoading] = useState(false);
+  const [errorAPI] = useState(null)
 
   const { addTask } = useTaskList()
 
@@ -40,15 +39,22 @@ export const Task = () => {
   }
 
   const handleAddServerTask = async () => {
-    const serverTask = await fetchTask()
-    const data = {
-      id: String(new Date().getTime()),
-      title: serverTask[0].title,
-      completed: serverTask[0].completed
-    }
-    console.log("aaa", data)
+    try {
+      setLoading(true)
+      const serverTask = await fetchTask()
+      const data = {
+        id: String(new Date().getTime()),
+        title: serverTask[0].title,
+        completed: serverTask[0].completed
+      }
+      addTask(data)
+      setLoading(false);
 
-    addTask(data)
+    } catch (error) {
+      console.log("error fetching task data", error)
+      setLoading(false);
+
+    }
   }
 
   return (
@@ -75,7 +81,17 @@ export const Task = () => {
             <Span>Tarefa server</Span>
           </AddServerTask>
         </ContainerDiv>
-        <TaskList />
+        {loading ? (
+          <Span>Carregando Tarefa...</Span>
+        ) : (
+          <>
+            {errorAPI ? (
+              <Span>Erro ao buscar dados. Por favor, tente novamente mais tarde.</Span>
+            ) : (
+              <TaskList />
+            )}
+          </>
+        )}
       </Container>
     </SafeArea>
   )
