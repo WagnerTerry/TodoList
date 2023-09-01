@@ -14,6 +14,14 @@ export const Container = styled.View`
   background-color: #121214;
 `;
 
+export const ContainerDiv = styled.View`
+  align-items: center;
+  //margin: 32px 0;
+  background-color: #121214;
+  justify-content: space-around;
+  flex-direction: row;
+`;
+
 export const Title = styled.Text`
   font-size: 24px;
   font-weight: bold;
@@ -44,7 +52,20 @@ export const AddButton = styled.TouchableOpacity`
   margin-bottom: 40px;
   color: #f1f1f1;
   font-weight: bold;
-  width: 100%;
+  width: 45%;
+`
+
+export const AddServerTask = styled.TouchableOpacity`
+  background-color: #cdab12;
+  padding: 16px;
+  border-radius: 8px;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 40px;
+  margin-left: 8px;
+  color: #f1f1f1;
+  font-weight: bold;
+  width: 45%;
 `
 
 export const TaskButton = styled.TouchableOpacity`
