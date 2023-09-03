@@ -49,11 +49,11 @@ export const TaskList = () => {
         >
           {
             item.completed ? (
-              <TaskTitle>
+              <TaskTitle numberOfLines={1} ellipsizeMode='tail'>
                 {item.title}
               </TaskTitle>
             ) : (
-              <TaskComplete>
+              <TaskComplete numberOfLines={1} ellipsizeMode='tail'>
                 {item.title}
               </TaskComplete>
             )
