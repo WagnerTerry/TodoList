@@ -23,6 +23,13 @@ export const ContainerDiv = styled.View`
   width: 100%;
 `;
 
+export const Header = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 export const Title = styled.Text`
   font-size: 24px;
   font-weight: bold;

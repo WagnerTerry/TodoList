@@ -18,6 +18,7 @@ export interface ITaskContext {
   addTask(task: ITask): void
   removeTask(id: string): void;
   completeTask(id: string): void;
+  removeAllTasks(): void;
 }
 
 const tasksData = '@MyTasks'
@@ -36,7 +37,7 @@ export const TasksProvider: React.FunctionComponent<IProps> = ({ children }) => 
       }
     }
     loadTasks()
-  }, [])
+  }, [data])
 
   const addTask = async (task: ITask) => {
     try {
@@ -51,10 +52,24 @@ export const TasksProvider: React.FunctionComponent<IProps> = ({ children }) => 
   }
 
   const removeTask = async (id: string) => {
-    const newTaskList = data.filter((task) => task.id !== id)
-    setData(newTaskList)
-    await AsyncStorage.setItem(tasksData, JSON.stringify(newTaskList))
-    handleShowToast("Tarefa removida")
+    try {
+      const newTaskList = data.filter((task) => task.id !== id)
+      setData(newTaskList)
+      await AsyncStorage.setItem(tasksData, JSON.stringify(newTaskList))
+      handleShowToast("Tarefa removida")
+    } catch (error) {
+      console.log("Error removing task", error)
+    }
+  }
+
+  const removeAllTasks = async () => {
+    try {
+      await AsyncStorage.setItem(tasksData, JSON.stringify([]))
+      setData([])
+      handleShowToast("Lista apagada")
+    } catch (error) {
+      console.log("Error removing all list", error)
+    }
   }
 
   const completeTask = async (taskId: string) => {
@@ -79,7 +94,7 @@ export const TasksProvider: React.FunctionComponent<IProps> = ({ children }) => 
 
   return (
     <TasksContext.Provider value={{
-      tasks: data, addTask, removeTask, completeTask
+      tasks: data, addTask, removeTask, completeTask, removeAllTasks
     }}
     >
       {children}

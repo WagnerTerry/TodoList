@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import {
   Container,
@@ -8,7 +8,8 @@ import {
   AddButton,
   Span,
   ContainerDiv,
-  AddServerTask
+  AddServerTask,
+  Header
 }
   from './styles'
 import { TaskList } from '../../components/TaskList';
@@ -16,14 +17,14 @@ import { useTaskList } from '../../context/TaskContext';
 import { Alert } from 'react-native';
 import { fetchTask } from '../../services/TaskService';
 import { ToastAndroid } from 'react-native';
-
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 export const Task = () => {
   const [newTask, setNewTasks] = useState('')
   const [loading, setLoading] = useState(false);
   const [errorAPI] = useState(null)
 
-  const { addTask } = useTaskList()
+  const { addTask, removeAllTasks } = useTaskList()
 
   const handleAddNewTask = () => {
     if (newTask.trim() === '') {
@@ -54,10 +55,11 @@ export const Task = () => {
       setLoading(false);
       handleShowToast("Tarefa do servidor adicionada")
 
-
     } catch (error) {
       console.log("error fetching task data", error)
       setLoading(false);
+      handleShowToast("Erro ao buscar tarefas, verifique sua internet, ou tente novamente mais tarde")
+
     }
   }
 
@@ -72,10 +74,30 @@ export const Task = () => {
     );
   }
 
+  const clearTodoList = () => {
+    Alert.alert('Apagar lista', "Tem certeza de que deseja apagar a lista de tarefas?", [
+      {
+        text: "Cancelar",
+        onPress: () => { }
+      }, {
+        text: 'Excluir',
+        onPress: () => removeAllTasks()
+      }
+    ])
+  }
+
   return (
     <SafeArea>
       <Container>
-        <Title>Lista de Tarefas</Title>
+        <Header>
+          <Title>Lista de Tarefas</Title>
+          <Icon
+            name='delete'
+            size={30}
+            color="#eb1c1c"
+            onPress={clearTodoList}
+          />
+        </Header>
         <Input
           placeholder='Nova Tarefa'
           placeholderTextColor={'#555555'}
