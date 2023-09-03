@@ -37,7 +37,7 @@ export const TasksProvider: React.FunctionComponent<IProps> = ({ children }) => 
       }
     }
     loadTasks()
-  }, [data])
+  }, [])
 
   const addTask = async (task: ITask) => {
     try {
