@@ -125,7 +125,7 @@ export const Task = () => {
                     onPress={handleAddServerTask}
                     activeOpacity={0.7}
                   >
-                    <Span>Tarefa server</Span>
+                    <Span>Tarefa servidor</Span>
                   </AddServerTask>
                 </ContainerDiv>
                 <TaskList />
