@@ -104,6 +104,7 @@ export const Task = () => {
           placeholderTextColor={'#555555'}
           onChangeText={setNewTasks}
           value={newTask}
+          editable={!loading}
         />
         {loading ? (
           <LoadingText>Carregando Tarefa...</LoadingText>
@@ -117,15 +118,12 @@ export const Task = () => {
                   <AddButton
                     onPress={handleAddNewTask}
                     activeOpacity={0.7}
-                    disabled={loading}
                   >
                     <Span>Adicionar</Span>
                   </AddButton>
                   <AddServerTask
                     onPress={handleAddServerTask}
                     activeOpacity={0.7}
-                    disabled={loading}
-
                   >
                     <Span>Tarefa server</Span>
                   </AddServerTask>

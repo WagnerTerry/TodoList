@@ -23,8 +23,8 @@ export const TaskList = () => {
     loadTasks()
   }, [tasks])
 
-  const handleRemoveTask = (id: string) => {
-    Alert.alert('Tem certeza?', 'Deseja realmente excluir a tarefa', [
+  const handleRemoveTask = (id: string, title: string) => {
+    Alert.alert(title, 'Deseja realmente excluir a tarefa', [
       {
         text: "Cancelar",
         onPress: () => { }
@@ -43,7 +43,7 @@ export const TaskList = () => {
       renderItem={({ item }) => (
         <TaskButton
           onPress={() => completeTask(item.id)}
-          onLongPress={() => handleRemoveTask(item.id)}
+          onLongPress={() => handleRemoveTask(item.id, item.title)}
           activeOpacity={0.7}
           style={item.completed ? { backgroundColor: '#079b07' } : { backgroundColor: '#ff9100' }}
         >
