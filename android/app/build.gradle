@@ -74,6 +74,11 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     namespace "com.todolist"
+    project.ext.vectoricons = [
+    iconFontNames: ['MaterialIcons.ttf', 'FontAwesome.ttf', 'Octicons.ttf']
+    ]
+
+    apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
     defaultConfig {
         applicationId "com.todolist"
         minSdkVersion rootProject.ext.minSdkVersion
