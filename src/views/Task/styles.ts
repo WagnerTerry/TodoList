@@ -41,6 +41,13 @@ export const Span = styled.Text`
   color: #f1f1f1;
 `;
 
+export const LoadingText = styled.Text`
+  font-size: 20px;
+  color: #f1f1f1;
+  margin-top: 16px;
+
+`;
+
 export const Input = styled.TextInput`
   background-color: #29292e;
   color: #f1f1f1;

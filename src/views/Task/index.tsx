@@ -9,7 +9,8 @@ import {
   Span,
   ContainerDiv,
   AddServerTask,
-  Header
+  Header,
+  LoadingText
 }
   from './styles'
 import { TaskList } from '../../components/TaskList';
@@ -104,31 +105,33 @@ export const Task = () => {
           onChangeText={setNewTasks}
           value={newTask}
         />
-        <ContainerDiv>
-          <AddButton
-            onPress={handleAddNewTask}
-            activeOpacity={0.7}
-            disabled={loading}
-          >
-            <Span>Adicionar</Span>
-          </AddButton>
-          <AddServerTask
-            onPress={handleAddServerTask}
-            activeOpacity={0.7}
-            disabled={loading}
-
-          >
-            <Span>Tarefa server</Span>
-          </AddServerTask>
-        </ContainerDiv>
         {loading ? (
-          <Span>Carregando Tarefa...</Span>
+          <LoadingText>Carregando Tarefa...</LoadingText>
         ) : (
           <>
             {errorAPI ? (
               <Span>Erro ao buscar dados. Por favor, tente novamente mais tarde.</Span>
             ) : (
-              <TaskList />
+              <>
+                <ContainerDiv>
+                  <AddButton
+                    onPress={handleAddNewTask}
+                    activeOpacity={0.7}
+                    disabled={loading}
+                  >
+                    <Span>Adicionar</Span>
+                  </AddButton>
+                  <AddServerTask
+                    onPress={handleAddServerTask}
+                    activeOpacity={0.7}
+                    disabled={loading}
+
+                  >
+                    <Span>Tarefa server</Span>
+                  </AddServerTask>
+                </ContainerDiv>
+                <TaskList />
+              </>
             )}
           </>
         )}
