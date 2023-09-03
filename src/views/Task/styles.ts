@@ -80,7 +80,7 @@ export const AddServerTask = styled.TouchableOpacity`
   margin-left: 8px;
   color: #f1f1f1;
   font-weight: bold;
-  width: 47%;
+  width: 49%;
 
 `
 
